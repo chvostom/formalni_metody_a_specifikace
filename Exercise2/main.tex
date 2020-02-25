@@ -1,0 +1,116 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\usepackage{amsfonts}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+
+\title{MI-FME Cvičení 2}
+\author{Tomáš Chvosta}
+\date{Únor 2020}
+
+\setcounter{secnumdepth}{-2} % no numbered sections
+
+\begin{document}
+
+\maketitle
+
+\section{Cvičení 2a}
+
+\subsection{Zadání:}
+
+Navrhněte input/output specifikaci pro problém nalezení prvočíselného rozkladu pro zadané celé číslo.
+
+\subsection{Vstup:}
+Celé číslo $ n \in \Z , n \geq 2 $
+
+\subsection{Výstup:}
+n-tice prvočísel $ (p_1, p_2, \dots, p_k)$ taková, že platí:
+$$(\forall i \in \Z)(1 \leq i \leq k)(prvocislo(p_i) \wedge \prod_{i=1}^k p_i = n) $$
+$$(\forall p \in \Z)(prvocislo(p)):\Leftrightarrow  (p > 1) \wedge ((\forall x \in \N)((p\ mod\ x = 0) \Rightarrow (x = 1) \lor (x = p))) $$
+
+\subsection{Poznámky:}
+Chci prvočíselný rozklad, takže prostě hledám čísla, která budou prvočísla a~zároveň, když je všechna vynásobím, tak získám to číslo, které bylo zadáno. Potom musím zadefinovat prvočíslo, což musí být celé číslo větší než 1 a pokud existuje číslo, které ho dělí beze zbytku, pak je to buď jednička nebo to samotné číslo.
+
+\section{Cvičení 2b}
+
+\subsection{Zadání:}
+
+Navrhněte input/output specifikaci pro vyhledávání řetězce.
+
+\subsection{Vstup:}
+Pole znaků $text$ délky $n$ \newline Pole znaků $hledany$ délky $k$
+
+\subsection{Výstup:}
+Pravda - v případě, že se hledaný řetězec vyskytuje v zadaném textu. \newline
+Nepravda - v případě, že se hledaný řetězec nevyskytuje v zadaném textu.
+
+$$(\exists i \in \Z)(0 \leq i \leq n - k)(\forall j \in \Z)(0 \leq j < k)(text[i+j] = hledany[j])$$
+
+\subsection{Poznámky:}
+
+V této úloze vlastně hledám index v textu, kde začíná hledaný řetězec. Mělo by se mi to do toho textu vejít, proto je tam $i \leq n - k$. Když ten index mám, tak už jen stačí zkontrolovat jednotlivé znaky, jestli jsou stejné.
+
+
+\section{Cvičení 2c}
+
+Navrhněte input/output specifikaci pro kontrolu, zda se jeden řetězec shoduje s~druhým, který obsahuje právě jeden žolíkový znak '*'.
+
+\subsection{Zadání:}
+
+\subsection{Vstup:}
+Pole znaků $reg$ délky $n$ \newline
+Pole znaků $text$ délky $m$
+
+\subsection{Výstup:}
+
+Pravda - v případě, že se řetězce shodují. \newline
+Nepravda - v případě, že se řetězce neshodují.
+
+$$(\exists i \in \Z)(reg[i] =\ '*') \wedge (((\forall j \in \Z)(0 \leq j < i)(reg[j] = text[j])) \ \wedge $$
+$$((\forall k \in \Z)(i < k < n)(reg[k] = text[m-n+k]))) \ \wedge \ (m \geq n - 1)$$
+
+\subsection{Poznámky:}
+
+V řetězci $reg$ musí být někde právě jedna hvězdička. Tu stačí najít a potom zkontrolovat znaky, které jí předchází a které za ní následují, jestli se vyskytují na správných pozicích v řetězci $text$. Zároveň musí platit $m \geq n - 1$, například když má řetězec $reg$ délku 5, znamená to, že má 4 znaky, které nepředstavují hvězdičku a tyto znaky se nutně musí vyskytovat v řetězci $text$. Z toho můžeme vidět, že délka řetězce $text$ musí být alespoň 4, jinak řetezce $req$ a $text$ nemohou být stejné.
+
+\section{Cvičení 2d}
+
+\subsection{Zadání:}
+
+Navrhněte input/output specifikaci pro algoritmus, který ze zadaného textu vrátí ta slova, která představují palindromy.
+
+\subsection{Vstup:}
+
+Pole znaků $text$ délky $n$
+
+\subsection{Výstup:}
+
+Množina slov z textu: 
+$$\{slovo\ |\ palindrom\_v\_textu(text,n,slovo,i,l)\}$$ \newline
+$$(\forall text,n,i,l)(palindrom\_v\_text(text,n,slovo,i,l)):\Leftrightarrow $$
+$$ oddeleni\_slova(text,n,i,l)\ \wedge \ slovo=substring(text,i,l)\ \wedge \ palindrom(slovo,l)$$ \newline
+
+$$(\forall text,n,i,l)(oddeleni\_slova(text,n,i,l)): \Leftrightarrow $$
+$$ (0 \leq i < n - l) \ \wedge $$
+$$ ((i=0) \ \lor \  (text[i-1]=\ '\ '))\ \wedge $$
+$$ ((i+l=n-1) \ \lor \ (text[i+l+1]=\ '\ ')) \ \wedge $$
+$$ (\nexists x \in \Z)(i \leq x \leq i+l)(text[x]=\ '\ ')$$ \newline
+
+$$(\forall text,i,l)(substring(text,i,l):=s)\ \text{s.t.}\ (\forall x \in \Z)(0 \leq x \leq l-1)(s[x]=text[i+x])$$\newline
+
+$$(\forall slovo,l)(palindrom(slovo,l)): \Leftrightarrow (\forall i \in \Z)(0 \leq i < l)(slovo[i]=slovo[l-i-1])$$
+
+\subsection{Poznámky:}
+Ve své podstatě jen hledám slova, která splňují vlastnost palindromu. Nejprve je tedy potřeba zkontrolovat, že před slovem a za slovem je mezera (s~výjimkou slova na pozici 0 a slova na úplném konci textu). To přesně dělá $oddeleni\_slova$. Dále funkce $substring$ vrátí jednotlivá slova. Nakonec stačí pouze zkontrolovat, že platí vlastnost palindromu, tedy že na $i$-té pozici je stejný znak jako na $(l-i-1)$-té pozici.\newline
+\begin{flushleft}
+$text$ \dots zadaný text \newline
+$n$ \dots délka zadaného textu \newline
+$slovo$ \dots slovo v textu \newline
+$i$ \dots pozice slova v textu \newline
+$l$ \dots délka slova \newline\newline
+\end{flushleft}
+
+\end{document}
