@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{float}
+\usepackage{makecell}
 
 \title{MI-FME Cvičení 3}
 \author{Tomáš Chvosta}
@@ -15,7 +16,28 @@
 
 \subsection{Zadání:}
 
+Dokažte následující formuli:
+$$[\neg[[r \lor s] \Rightarrow q ] \wedge [[r \lor s] \Rightarrow q]] \Rightarrow [[p \Rightarrow q] \wedge \neg [p \Rightarrow q]]$$
+
 \subsection{Důkaz:}
+
+Jelikož se jedná o implikaci, předpokládáme, že platí levá strana pravidla tedy konjunkce $\neg[[r \lor s] \Rightarrow q ]$ a $[[r \lor s] \Rightarrow q]]$. Tyto dva předpoklady představují $\bot$ a jelikož z $\bot$ plyne cokoliv, nezáleží na tom, co máme na pravé straně implikace a formule vždy platí.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & \makecell{$\neg[[r \lor s] \Rightarrow q ]$ \\ $[[r \lor s] \Rightarrow q]]$ \dots $\bot$} & \makecell{$\ \ [p \Rightarrow q]$ \\ $\neg [p \Rightarrow q]$} \\ \hline
+    	
+    
+            
+    	\end{tabular}
+\end{table}
 
 \section{Cvičení 3b}
 
@@ -47,11 +69,37 @@ Jelikož se jedná o implikaci, je předpoklad $[\neg p \Rightarrow p]$ a pokus�
 
 \subsection{Zadání:}
 
+Dokažte následující formuli:
+$$\neg [p \Rightarrow q] \Rightarrow [q \Rightarrow p]$$
+
 \subsection{Důkaz:}
+
+Jelikož se jedná o implikaci, je $\neg [p \Rightarrow q]$ předpoklad. Pokusíme se tedy dokázat $[q \Rightarrow p]$. Použijeme stejný postup a předpokládáme, že platí $q$. Nyní by se mohlo hodit dokázat, že platí $[p \Rightarrow q]$. Jako lemma tedy zvolíme $[p \Rightarrow q]$ a díky předpokladu $q$ je jasné, že toto lemma platí. Můžeme tedy přidat předpoklad $[p \Rightarrow q]$, což společně s předpokladem $\neg [p \Rightarrow q]$ vytvoří $\bot$, ze které plyne cokoliv.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & $\neg [p \Rightarrow q]$ & $[q \Rightarrow p]$ \\ \hline
+    	2. & $q$ & $p$ \\ \hline
+    	3. &  & lemma $[p \Rightarrow q]$ \\ \hline
+    	4. & $[p \Rightarrow q]$ \dots $\bot$  &  \\ \hline
+    
+            
+    	\end{tabular}
+\end{table}
 
 \section{Cvičení 3d}
 
 \subsection{Zadání:}
+
+Dokažte následující formuli:
+$$$$
 
 \subsection{Důkaz:}
 
@@ -59,11 +107,17 @@ Jelikož se jedná o implikaci, je předpoklad $[\neg p \Rightarrow p]$ a pokus�
 
 \subsection{Zadání:}
 
+Dokažte následující formuli:
+$$$$
+
 \subsection{Důkaz:}
 
 \section{Cvičení 3f}
 
 \subsection{Zadání:}
+
+Dokažte následující formuli:
+$$$$
 
 \subsection{Důkaz:}
 
@@ -71,17 +125,26 @@ Jelikož se jedná o implikaci, je předpoklad $[\neg p \Rightarrow p]$ a pokus�
 
 \subsection{Zadání:}
 
+Dokažte následující formuli:
+$$$$
+
 \subsection{Důkaz:}
 
 \section{Cvičení 3h}
 
 \subsection{Zadání:}
 
+Dokažte následující formuli:
+$$$$
+
 \subsection{Důkaz:}
 
 \section{Cvičení 3i}
 
 \subsection{Zadání:}
+
+Dokažte následující formuli:
+$$$$
 
 \subsection{Důkaz:}
 
