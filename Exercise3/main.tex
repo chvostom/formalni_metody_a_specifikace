@@ -27,7 +27,7 @@ Jelikož se jedná o implikaci, předpokládáme, že platí levá strana pravid
 
     \caption{Důkazová tabulka}
 
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{|c|c|c|c}
     
     % \\ je novej radek | je cara \hline je horizontální čara
     
@@ -99,53 +99,181 @@ Jelikož se jedná o implikaci, je $\neg [p \Rightarrow q]$ předpoklad. Pokusí
 \subsection{Zadání:}
 
 Dokažte následující formuli:
-$$$$
+$$[p \Rightarrow [[q \lor r] \wedge \neg q \wedge \neg r]] \Rightarrow \neg p$$
 
 \subsection{Důkaz:}
+
+Nejprve předpokládejme $[p \Rightarrow [[q \lor r] \wedge \neg q \wedge \neg r]]$ a dokažme $\neg p$. To uděláme tak, že předpokládáme $p$ a zkusíme najít spor. Pokud platí $p$, tak můžeme usoudit $[[q \lor r] \wedge \neg q \wedge \neg r]]$. Z předchozího předpokladu můžeme usoudit, že platí $\neg q$, $\neg r$ a také $[q \lor r]$. Pokud víme, že platí disjunkce $[q \lor r]$, pak postupujeme tak, že nejprve předpokládáme $q$ a následně dokončíme důkaz a poté předpokládáme $r$ a následně dokončíme důkaz. V obou dvou případech získáme $\bot$, čímž získáváme spor a důkaz je úspěšně dokončen.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & $[p \Rightarrow [[q \lor r] \wedge \neg q \wedge \neg r]]$ & $\neg p$ \\ \hline
+    	2. & $p$ & hledáme spor  \\ \hline
+    	3. & $[[q \lor r] \wedge \neg q \wedge \neg r]]$ & hledáme spor  \\ \hline
+    	4. & \makecell{$\neg q$ \\ $\neg r$ \\ $[q \lor r]$} & hledáme spor  \\ \hline
+    	5a. & $q$ \dots $\bot$ & hledáme spor  \\ \hline
+    	5b. & $r$ \dots $\bot$ & hledáme spor  \\ \hline
+    
+            
+    	\end{tabular}
+\end{table}
 
 \section{Cvičení 3e}
 
 \subsection{Zadání:}
 
 Dokažte následující formuli:
-$$$$
+$$q \Rightarrow [[p \wedge q] \lor [\neg p \wedge q]]$$
 
 \subsection{Důkaz:}
+
+Na počátku předpokládáme, že platí $q$ a dokážeme $[[p \wedge q] \lor [\neg p \wedge q]]$. To můžeme udělat například tak, že předpokládáme $\neg [p \wedge q]$ a dokážeme $[\neg p \wedge q]$ (nebo klidně obráceně, avšak toto je výhodnější a snazší). Při důkazu konjunkce je podtřeba dokázat $\neg p$ i $q$. Při dokazování $q$ využijeme toho, že máme $q$ v předpokladech a tedy je triviálně dokázáno. Při dokazování $\neg p$ předpokládáme, že platí $p$ a najdeme spor. Ten jsme však již vytvořili přidáním $p$ do předpokladů, poněvadž jistě platí $[p \wedge q]$ díky předpokladům $p$ a $q$ a tedy spolu s $\neg [p \wedge q]$ získáme $\bot$, čímž je důkaz úspěšně dokončen.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & $q$ & $[[p \wedge q] \lor [\neg p \wedge q]]$ \\ \hline
+    	2. & $\neg [p \wedge q]$  & $[\neg p \wedge q]$  \\ \hline
+    	3. &  & $q$  \\ \hline
+    	4. &  & \makecell{$\neg p$ \\ $q$}  \\ \hline
+    	5. & $p$  & hledáme spor  \\ \hline
+    	6. & & lemma $[p \wedge q]$ \\ \hline
+    	7. & $[p \wedge q]$ \dots $\bot$  & hledáme spor  \\ \hline
+    	
+    
+            
+    	\end{tabular}
+\end{table}
 
 \section{Cvičení 3f}
 
 \subsection{Zadání:}
 
 Dokažte následující formuli:
-$$$$
+$$\neg [p \wedge q] \Rightarrow [\neg p \lor \neg q]$$
 
 \subsection{Důkaz:}
+
+Nejprve předpokládáme, že platí $\neg [p \wedge q]$ a dokážeme $[\neg p \lor \neg q]$. To dokážeme tak, že předpokládáme, že platí $p$ a dokážeme $\neg q$. To dokážeme tak, že předpokládáme $q$ a najdeme spor. Nyní díky předpokladům $p$ a $q$ můžeme usoudit, že platí lemma $[p \wedge q]$, což však společně s $\neg [p \wedge q]$ tvoří $\bot$. Podobně bychom mohli zvolit v druhém kroku $q$ místo $p$ a dostali bychom stejný výsledek.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & $\neg [p \wedge q]$ & $[\neg p \lor \neg q]$  \\ \hline
+    	2a. & $p$ & $\neg q$  \\ \hline
+    	2b. & $q$ & $\neg p$  \\ \hline
+    	3a. & $q$ & hledáme spor  \\ \hline
+    	3b. & $p$ & hledáme spor  \\ \hline
+    	4. &  & lemma $[p \wedge q]$  \\ \hline
+    	5. & $[p \wedge q]$ \dots $\bot$ & hledáme spor  \\ \hline
+            
+    	\end{tabular}
+\end{table}
+
+\subsection{Poznámky:}
+V tabulce buď zvolíme variantu a) nebo b), ale ne obojí!
 
 \section{Cvičení 3g}
 
 \subsection{Zadání:}
 
 Dokažte následující formuli:
-$$$$
+$$[[p \wedge q] \Rightarrow r] \Rightarrow [[p \Rightarrow r] \lor [q \Rightarrow r]]$$
 
 \subsection{Důkaz:}
+
+Nejprve předpokládejme, že platí $[[p \wedge q] \Rightarrow r]$ a dokážeme $[[p \Rightarrow r] \lor [q \Rightarrow r]]$. V tomto kroku máme opět dvě volby jako v předchozí úloze, nyní budeme předpokládat, že platí $\neg [q \Rightarrow r]$ a pokusíme se dokázat $p \Rightarrow r$. To dokážeme tak, že předpokládáme $p$ a dokazujeme $r$. Nyní se hodí využít faktu, že $r$ je ekvivalentní s $\neg \neg r$. Následně můžeme předpokládat $\neg r$ a poté se pokusit najít spor. Aby platil předpoklad $[p \wedge q] \Rightarrow r$ a zároveň předpoklad $\neg r$, musí platit $\neg [p \wedge q]$. Stejně tak, aby platil předpoklad $\neg [q \Rightarrow r]$ a zároveň $\neg r$, musí platit $q$. Nyní díky předpokladům $p$ a $q$ můžeme dokázat lemma $[p \wedge q]$, což nám vytvoří krásný spor s předpokladem $\neg [p \wedge q]$ a vznikne $\bot$, což úspěšně dokončí důkaz.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & $[p \wedge q] \Rightarrow r$ & $[p \Rightarrow r] \lor [q \Rightarrow r]$ \\ \hline
+    	2. & $\neg [q \Rightarrow r]$ & $p \Rightarrow r$ \\ \hline
+    	3. & $p$ & $r$ \\ \hline
+    	4. &  & $\neg \neg r$ \\ \hline
+    	5. & $\neg r$ & hledáme spor \\ \hline
+    	6. & $\neg [p \wedge q]$ & hledáme spor \\ \hline
+    	7. & $q$ & hledáme spor \\ \hline
+    	8. & $[p \wedge q] \dots \bot$ & hledáme spor \\ \hline
+            
+    	\end{tabular}
+\end{table}
 
 \section{Cvičení 3h}
 
 \subsection{Zadání:}
 
 Dokažte následující formuli:
-$$$$
+$$ [p \wedge q] \Rightarrow \neg [\neg p \lor \neg q]$$
 
 \subsection{Důkaz:}
+
+Na začátku předpokládejme $p \wedge q$ a dokažme $\neg [\neg p \lor \neg q]$. Z předpokladu $p \wedge q$ můžeme usoudit $p$ a $q$. V dalším kroku předpokládejme, že platí $\neg p \lor \neg q$ a pokusíme se najít spor. Pokud víme, že platí $\neg p \lor \neg q$, můžeme nejprve předpokládat $\neg p$ a dokončit důkaz a poté předpokládat $\neg q$ a dokončit důkaz. V obou případech nalezneme spor a vznikne $\bot$, čímž je důkaz úspěšně dokončen.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & $p \wedge q$ & $\neg [\neg p \lor \neg q]$ \\ \hline
+    	2. & \makecell{$p$ \\ $q$} &  \\ \hline
+    	3. & $\neg p \lor \neg q$ & hledáme spor \\ \hline
+    	4. & $\neg p$ \dots $\bot$ & hledáme spor \\ \hline
+    	5. & $\neg q$ \dots $\bot$ & hledáme spor \\ \hline
+            
+    	\end{tabular}
+\end{table}
 
 \section{Cvičení 3i}
 
 \subsection{Zadání:}
 
 Dokažte následující formuli:
-$$$$
+$$[p \Rightarrow q] \lor [q \Rightarrow r]$$
 
 \subsection{Důkaz:}
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. &  & \\ \hline
+            
+    	\end{tabular}
+\end{table}
 
 \end{document}
