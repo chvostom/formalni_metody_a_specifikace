@@ -262,6 +262,8 @@ $$[p \Rightarrow q] \lor [q \Rightarrow r]$$
 
 \subsection{Důkaz:}
 
+Jelikož máme dokázat disjunkci, můžeme postupovat tak, že předpokládáme, že levá část disjunkce neplatí a dokážeme pravou stranu. V tomto konkrétním případě to znamená předpokládat, že platí $\neg [p \Rightarrow q]$ a dokázat $q \Rightarrow r$. Pokračujeme předpokladem, že platí $q$ a máme dokázat $r$. Díky předpokladu $q$ si můžeme dokázat lemma $[p \Rightarrow q]$, díky platnosti $q$ bude lemma vždy platit bez ohledu na to, jestli platí $p$. Nyní se v předpokladech ocitla formule $[p \Rightarrow q]$, která nám vytvoří spor s prvním předpokladem. Z toho plyne, že první část počáteční formule $[p \Rightarrow q]$ musí platit, čímž jsme důkaz úspěšně dokončili.
+
 \begin{table}[H]\centering
 
     \caption{Důkazová tabulka}
@@ -271,7 +273,10 @@ $$[p \Rightarrow q] \lor [q \Rightarrow r]$$
     % \\ je novej radek | je cara \hline je horizontální čara
     
         \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
-    	1. &  & \\ \hline
+    	1. & $\neg [p \Rightarrow q]$  & $q \Rightarrow r$ \\ \hline
+    	2. & $q$  & $r$ \\ \hline
+    	3. &   & lemma $p \Rightarrow q$ \\ \hline
+    	4. & $[p \Rightarrow q]$ \dots $\bot$  & $r$ \\ \hline
             
     	\end{tabular}
 \end{table}
