@@ -21,7 +21,7 @@ $$[\neg[[r \lor s] \Rightarrow q ] \wedge [[r \lor s] \Rightarrow q]] \Rightarro
 
 \subsection{Důkaz:}
 
-Jelikož se jedná o implikaci, předpokládáme, že platí levá strana pravidla tedy konjunkce $\neg[[r \lor s] \Rightarrow q ]$ a $[[r \lor s] \Rightarrow q]]$. Tyto dva předpoklady představují $\bot$ a jelikož z $\bot$ plyne cokoliv, nezáleží na tom, co máme na pravé straně implikace a formule vždy platí.
+Jelikož se jedná o implikaci, předpokládáme, že platí levá strana pravidla tedy konjunkce $\neg[[r \lor s] \Rightarrow q ]$ a $[[r \lor s] \Rightarrow q]]$. Tyto dva předpoklady představují $\bot$ a~jelikož z $\bot$ plyne cokoliv, nezáleží na tom, co máme na pravé straně implikace a formule vždy platí.
 
 \begin{table}[H]\centering
 
@@ -103,7 +103,7 @@ $$[p \Rightarrow [[q \lor r] \wedge \neg q \wedge \neg r]] \Rightarrow \neg p$$
 
 \subsection{Důkaz:}
 
-Nejprve předpokládejme $[p \Rightarrow [[q \lor r] \wedge \neg q \wedge \neg r]]$ a dokažme $\neg p$. To uděláme tak, že předpokládáme $p$ a zkusíme najít spor. Pokud platí $p$, tak můžeme usoudit $[[q \lor r] \wedge \neg q \wedge \neg r]]$. Z předchozího předpokladu můžeme usoudit, že platí $\neg q$, $\neg r$ a také $[q \lor r]$. Pokud víme, že platí disjunkce $[q \lor r]$, pak postupujeme tak, že nejprve předpokládáme $q$ a následně dokončíme důkaz a poté předpokládáme $r$ a následně dokončíme důkaz. V obou dvou případech získáme $\bot$, čímž získáváme spor a důkaz je úspěšně dokončen.
+Nejprve předpokládejme $[p \Rightarrow [[q \lor r] \wedge \neg q \wedge \neg r]]$ a dokažme $\neg p$. To uděláme tak, že předpokládáme $p$ a zkusíme najít spor. Pokud platí $p$, tak můžeme usoudit $[[q \lor r] \wedge \neg q \wedge \neg r]]$. Z předchozího předpokladu můžeme usoudit, že platí $\neg q$, $\neg r$ a také $[q \lor r]$. Pokud víme, že platí disjunkce $[q \lor r]$, pak postupujeme tak, že nejprve předpokládáme $q$ a následně dokončíme důkaz a poté předpokládáme $r$ a~následně dokončíme důkaz. V obou dvou případech získáme $\bot$, čímž získáváme spor a důkaz je úspěšně dokončen.
 
 \begin{table}[H]\centering
 
@@ -134,7 +134,7 @@ $$q \Rightarrow [[p \wedge q] \lor [\neg p \wedge q]]$$
 
 \subsection{Důkaz:}
 
-Na počátku předpokládáme, že platí $q$ a dokážeme $[[p \wedge q] \lor [\neg p \wedge q]]$. To můžeme udělat například tak, že předpokládáme $\neg [p \wedge q]$ a dokážeme $[\neg p \wedge q]$ (nebo klidně obráceně, avšak toto je výhodnější a snazší). Při důkazu konjunkce je podtřeba dokázat $\neg p$ i $q$. Při dokazování $q$ využijeme toho, že máme $q$ v předpokladech a tedy je triviálně dokázáno. Při dokazování $\neg p$ předpokládáme, že platí $p$ a najdeme spor. Ten jsme však již vytvořili přidáním $p$ do předpokladů, poněvadž jistě platí $[p \wedge q]$ díky předpokladům $p$ a $q$ a tedy spolu s $\neg [p \wedge q]$ získáme $\bot$, čímž je důkaz úspěšně dokončen.
+Na počátku předpokládáme, že platí $q$ a dokážeme $[[p \wedge q] \lor [\neg p \wedge q]]$. To můžeme udělat například tak, že předpokládáme $\neg [p \wedge q]$ a dokážeme $[\neg p \wedge q]$ (nebo klidně obráceně, avšak toto je výhodnější a snazší). Při důkazu konjunkce je podtřeba dokázat $\neg p$ i $q$. Při dokazování $q$ využijeme toho, že máme $q$ v předpokladech a~tedy je triviálně dokázáno. Při dokazování $\neg p$ předpokládáme, že platí $p$ a~najdeme spor. Ten jsme však již vytvořili přidáním $p$ do předpokladů, poněvadž jistě platí $[p \wedge q]$ díky předpokladům $p$ a $q$ a tedy spolu s $\neg [p \wedge q]$ získáme $\bot$, čímž je důkaz úspěšně dokončen.
 
 \begin{table}[H]\centering
 
@@ -201,7 +201,7 @@ $$[[p \wedge q] \Rightarrow r] \Rightarrow [[p \Rightarrow r] \lor [q \Rightarro
 
 \subsection{Důkaz:}
 
-Nejprve předpokládejme, že platí $[[p \wedge q] \Rightarrow r]$ a dokážeme $[[p \Rightarrow r] \lor [q \Rightarrow r]]$. V tomto kroku máme opět dvě volby jako v předchozí úloze, nyní budeme předpokládat, že platí $\neg [q \Rightarrow r]$ a pokusíme se dokázat $p \Rightarrow r$. To dokážeme tak, že předpokládáme $p$ a dokazujeme $r$. Nyní se hodí využít faktu, že $r$ je ekvivalentní s $\neg \neg r$. Následně můžeme předpokládat $\neg r$ a poté se pokusit najít spor. Aby platil předpoklad $[p \wedge q] \Rightarrow r$ a zároveň předpoklad $\neg r$, musí platit $\neg [p \wedge q]$. Stejně tak, aby platil předpoklad $\neg [q \Rightarrow r]$ a zároveň $\neg r$, musí platit $q$. Nyní díky předpokladům $p$ a $q$ můžeme dokázat lemma $[p \wedge q]$, což nám vytvoří krásný spor s předpokladem $\neg [p \wedge q]$ a vznikne $\bot$, což úspěšně dokončí důkaz.
+Na začátku tohoto důkazu předpokládejme, že platí $[[p \wedge q] \Rightarrow r]$ a dokažme $[[p \Rightarrow r] \lor [q \Rightarrow r]]$. V tomto kroku máme opět dvě volby jako v předchozí úloze, nyní budeme předpokládat, že platí $\neg [q \Rightarrow r]$ a pokusíme se dokázat $p \Rightarrow r$. To dokážeme tak, že předpokládáme $p$ a dokazujeme $r$. Nyní se hodí využít faktu, že $r$ je ekvivalentní s $\neg \neg r$. Následně můžeme předpokládat $\neg r$ a poté se pokusit najít spor. Aby platil předpoklad $[p \wedge q] \Rightarrow r$ a zároveň předpoklad $\neg r$, musí platit $\neg [p \wedge q]$. Stejně tak, aby platil předpoklad $\neg [q \Rightarrow r]$ a zároveň $\neg r$, musí platit $q$. Nyní díky předpokladům $p$ a $q$ můžeme dokázat lemma $[p \wedge q]$, což nám vytvoří krásný spor s předpokladem $\neg [p \wedge q]$ a vznikne $\bot$, což úspěšně dokončí důkaz.
 
 \begin{table}[H]\centering
 
@@ -233,7 +233,7 @@ $$ [p \wedge q] \Rightarrow \neg [\neg p \lor \neg q]$$
 
 \subsection{Důkaz:}
 
-Na začátku předpokládejme $p \wedge q$ a dokažme $\neg [\neg p \lor \neg q]$. Z předpokladu $p \wedge q$ můžeme usoudit $p$ a $q$. V dalším kroku předpokládejme, že platí $\neg p \lor \neg q$ a pokusíme se najít spor. Pokud víme, že platí $\neg p \lor \neg q$, můžeme nejprve předpokládat $\neg p$ a dokončit důkaz a poté předpokládat $\neg q$ a dokončit důkaz. V obou případech nalezneme spor a vznikne $\bot$, čímž je důkaz úspěšně dokončen.
+Na začátku předpokládejme $p \wedge q$ a dokažme $\neg [\neg p \lor \neg q]$. Z předpokladu $p \wedge q$ můžeme usoudit $p$ a $q$. V dalším kroku předpokládejme, že platí $\neg p \lor \neg q$ a pokusíme se najít spor. Pokud víme, že platí $\neg p \lor \neg q$, můžeme nejprve předpokládat $\neg p$ a dokončit důkaz a poté předpokládat $\neg q$ a dokončit důkaz. V~obou případech nalezneme spor a vznikne $\bot$, čímž je důkaz úspěšně dokončen.
 
 \begin{table}[H]\centering
 
@@ -262,7 +262,7 @@ $$[p \Rightarrow q] \lor [q \Rightarrow r]$$
 
 \subsection{Důkaz:}
 
-Jelikož máme dokázat disjunkci, můžeme postupovat tak, že předpokládáme, že levá část disjunkce neplatí a dokážeme pravou stranu. V tomto konkrétním případě to znamená předpokládat, že platí $\neg [p \Rightarrow q]$ a dokázat $q \Rightarrow r$. Pokračujeme předpokladem, že platí $q$ a máme dokázat $r$. Díky předpokladu $q$ si můžeme dokázat lemma $[p \Rightarrow q]$, díky platnosti $q$ bude lemma vždy platit bez ohledu na to, jestli platí $p$. Nyní se v předpokladech ocitla formule $[p \Rightarrow q]$, která nám vytvoří spor s prvním předpokladem. Z toho plyne, že první část počáteční formule $[p \Rightarrow q]$ musí platit, čímž jsme důkaz úspěšně dokončili.
+Jelikož máme dokázat disjunkci, můžeme postupovat tak, že předpokládáme, že levá část disjunkce neplatí a dokážeme pravou stranu. V tomto konkrétním případě to znamená předpokládat, že platí $\neg [p \Rightarrow q]$ a dokázat $q \Rightarrow r$. Dále pokračujeme předpokladem, že platí $q$ a máme dokázat $r$. Díky předpokladu $q$ si můžeme dokázat lemma $[p \Rightarrow q]$, díky platnosti $q$ bude lemma vždy platit bez ohledu na to, jestli platí $p$. Nyní se v předpokladech ocitla formule $[p \Rightarrow q]$, která nám vytvoří spor s prvním předpokladem. Z toho plyne, že první část počáteční formule $[p \Rightarrow q]$ musí platit, čímž jsme důkaz úspěšně dokončili.
 
 \begin{table}[H]\centering
 
