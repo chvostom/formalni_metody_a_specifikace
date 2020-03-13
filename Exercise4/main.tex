@@ -1,0 +1,163 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{makecell}
+
+\title{MI-FME Cvičení 4}
+\author{Tomáš Chvosta}
+\date{Březen 2020}
+
+\setcounter{secnumdepth}{-2} % no numbered sections
+\usepackage{czech}
+\begin{document}
+
+\maketitle
+
+\section{Cvičení 4a}
+Úloha byla vypracována na cvičení.
+
+\section{Cvičení 4b}
+
+\subsection{Zadání:}
+
+Dokažte následující formuli:
+$$[(\forall x)(P(x) \wedge Q(x))] \Rightarrow [[(\forall x)(P(x))]\wedge [(\forall x)(Q(x))]] $$
+
+\subsection{Důkaz:}
+Jelikož se jedná o implikaci, můžeme předpokládat $(\forall x)(P(x) \wedge Q(x))$ a dokázat $[[(\forall x)(P(x))]\wedge [(\forall x)(Q(x))]$. Znamená to tedy, že máme dokázat zvlášť $(\forall x)(P(x))$ a  $(\forall x)(Q(x))$. Pokud dokazujeme $(\forall x)(P(x))$, zavedeme novou konstantu, například $a$ a píšeme: \uv{Nechť $a$ je libovolné ale pevné} a dokážeme $P[x\leftarrow a]$ tedy $P(a)$. Z předpokladu $(\forall x)(P(x) \wedge Q(x))$ můžeme produkovat nové známé věci. Například zvolíme term $a$ a usoudíme $P(a) \wedge Q(a)$. Z tohoto předpokladu můžeme usoudit $P(a)$ a $Q(a)$. Tím máme dokázáno $P(a)$. Stejně tak postupujeme při dokazování $(\forall x)(Q(x))$. Zavedeme novou konstantu, například $b$ a píšeme: \uv{Nechť $b$ je libovolné ale pevné} a dokážeme $Q(b)$. Z předpokladu $(\forall x)(P(x) \wedge Q(x))$ můžeme produkovat nové známé věci. Například zvolíme term $b$ a usoudíme $P(b) \wedge Q(b)$. Z tohoto předpokladu můžeme usoudit $P(b)$ a $Q(b)$. Tím máme dokázáno $Q(b)$.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & $(\forall x)(P(x) \wedge Q(x))$ & $[(\forall x)(P(x))] \wedge [(\forall x)(Q(x))]$ \\ \hline
+    	2. & & \makecell{$(\forall x)(P(x))$ \\ $(\forall x)(Q(x))$} \\ \hline
+    	3. & & $P(a)$ \\ \hline
+    	4. & $P(a) \wedge Q(a)$ & $P(a)$ \\ \hline
+    	5. & \makecell{$P(a)$ \\ $Q(a)$} & $P(a)$ \\ \hline
+    	6. & & $Q(b)$  \\ \hline
+    	7. & \makecell{$P(b)$ \\ $Q(b)$} & $Q(b)$ \\ \hline
+    	
+    	\end{tabular}
+\end{table}
+
+\section{Cvičení 4c}
+\subsection{Zadání:}
+
+Dokažte následující formuli:
+$$[(\exists x)(P(f(x))\lor Q(g(x)))] \Rightarrow [[(\exists x)(P(x))]\lor [(\exists x)(Q(x))]]$$
+
+\subsection{Důkaz:}
+Pro důkaz formule nejprve předpokládejme $(\exists x)(P(f(x))\lor Q(g(x)))$ a dokažme $[(\exists x)(P(x))] \lor [(\exists x)(Q(x))]$. Pro první předpoklad zvolme novou konstantu tak, že $x \leftarrow a$ a tedy platí $P(f(a)) \lor Q(g(a))$. Disjunkci dokážeme například tak, že předpokládáme $\neg[(\exists x)(P(x))]$ a dokážeme $[(\exists x)(Q(x))]$. 
+
+Nyní rozdělíme důkaz na dvě části. Nejprve předpokládejme, že platí $P(f(a))$. Dokážeme lemma $(\exists x)(P(x))$ jelikož se přímo nabízí zvolit term $f(a)$ a dokázat $P[x \leftarrow f(a)]$ tedy $P(f(a))$, což je ale triviálně dokázáno, neboť $P(f(a))$ máme v předpokladech. V této části důkazu záskáváme spor.
+
+V druhé části předpokládejme, že platí $Q(g(a))$. Nyní už stačí jen zvolit term $g(a)$ a dokázat, že platí $Q[x \leftarrow g(a)]$ tedy $Q(g(a))$. To je triviálně dokázáno, neboť $Q(g(a))$ už máme v předpokladech.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & $(\exists x)(P(f(x))\lor Q(g(x)))$ & $[(\exists x)(P(x))]\lor [(\exists x)(Q(x))]$ \\ \hline
+    	2. & $P(f(a)) \lor Q(g(a))$ & $[(\exists x)(P(x))]\lor [(\exists x)(Q(x))]$ \\ \hline
+    	3. & $\neg(\exists x)(P(x))$ & $(\exists x)(Q(x))$ \\ \hline
+    	4a. & $P(f(a))$ & $(\exists x)(Q(x))$ \\ \hline
+    	5a. & & lemma $(\exists x)(P(x))$ \\ \hline
+    	6a. & $(\exists x)(P(x))$ \dots $\bot$ & \\ \hline
+    	4b. & $Q(g(a))$ & $(\exists x)(Q(x))$ \\ \hline
+    	5b. &  & $Q(g(a))$ \\ \hline
+    	
+    	\end{tabular}
+\end{table}
+
+\section{Cvičení 4d}
+
+\subsection{Zadání:}
+
+Dokažte následující formuli:
+$$[(\exists x)(S \Rightarrow Q(x))] \Rightarrow [S \Rightarrow (\exists x)(Q(x))]$$
+
+\subsection{Důkaz:}
+Jelikož se jedná o implikaci, můžeme předpokládat $(\exists x)(S \Rightarrow Q(x))$ a dokázat $S \Rightarrow (\exists x)(Q(x))$. Opět dokazujeme implikaci, takže předpokládáme $S$ a dokážeme $(\exists x)(Q(x))$. Nyní se hodí vyprodukovat novou znalost z prvního předpokladu. Zavedeme novou konstantu $a$ tak, že $(S \Rightarrow Q(x))[x \leftarrow a]$ a přidáme $S \Rightarrow Q(a)$ do seznamu předpokladů. V předpokladech máme implikaci a také předpokládáme, že platí $S$, můžeme tedy usoudit $Q(a)$. Pro důkaz $(\exists x)(Q(x))$ zvolíme term $a$, který dosadíme za $x$ a dokážeme $Q(a)$. To je však již triviálně dokázáno.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & $(\exists x)(S \Rightarrow Q(x))$ & $S \Rightarrow (\exists x)(Q(x))$ \\ \hline
+    	2. & $S$ & $(\exists x)(Q(x))$ \\ \hline
+        3. & $S \Rightarrow Q(a)$ & $(\exists x)(Q(x))$ \\ \hline
+    	4. & $Q(a)$ & $(\exists x)(Q(x))$ \\ \hline
+    	5. & & $Q(a)$ \\ \hline
+    	
+    	\end{tabular}
+\end{table}
+
+\section{Cvičení 4e}
+
+\subsection{Zadání:}
+
+Dokažte následující formuli:
+$$[(\neg \exists x)(\exists y)(T(x,y))] \Rightarrow [(\forall x)(\neg T(f(g(x)), f(x)))]$$
+
+\subsection{Důkaz:}
+Jelikož dokazujeme implikaci, můžeme předpokládat $(\neg \exists x)(\exists y)(T(x,y))$ a dokázat $(\forall x)(\neg T(f(g(x)), f(x)))$. Zvolme nyní novou konstantu, například $a$ a nechť $a$ je libovolné, ale pevné, a dokažme $\neg T[x \leftarrow a]$ tedy $(\neg T(f(g(a)), f(a)))$. Formuli, před kterou máme negaci, dokážeme tak, že předpokládáme, že platí a~pokusíme se najít spor. K tomu abychom našli spor, se nám bude hodit dokázat lemma $(\exists x)(\exists y)(T(x,y))$. To dokážeme tak, že nejprve zvolíme term $f(g(a))$, dosadíme za $x$ a dokážeme $(\exists y)(T(f(g(a)),y))$ a poté zvolíme term $f(a)$, dosadíme za $y$ a dokážeme $T(f(g(a)), f(a))$, což už je ale díky předpokladu triviálně dokázáno. Nový předpoklad $(\exists x)(\exists y)(T(x,y))$ vytvoří spor, což úspěšně dokončí důkaz.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & $(\neg \exists x)(\exists y)(T(x,y))$ & $(\forall x)(\neg T(f(g(x)), f(x)))$ \\ \hline
+    	2. & & $(\neg T(f(g(a)), f(a)))$ \\ \hline
+    	3. & $T(f(g(a)), f(a))$ & hledáme spor \\ \hline
+    	4. & & lemma $(\exists x)(\exists y)(T(x,y))$ \\ \hline
+    	5. & $(\exists x)(\exists y)(T(x,y))$ \dots $\bot$ & hledáme spor \\ \hline
+    	
+    	\end{tabular}
+\end{table}
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka lemmatu}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. &  $T(f(g(a)), f(a))$ & lemma $(\exists x)(\exists y)(T(x,y))$ \\ \hline
+    	2. & & $T[x\leftarrow f(g(a))]$ \\ \hline
+    	3. & & $(\exists y)(T(f(g(a)),y))$ \\ \hline
+    	4. & & $T[y \leftarrow f(a)]$ \\ \hline
+    	5. & & $T(f(g(a)), f(a))$ \\ \hline
+    	
+    	
+    	\end{tabular}
+\end{table}
+
+
+
+\section{Cvičení 4f}
+Úloha bude vypracována na cvičení.
+
+\end{document}
