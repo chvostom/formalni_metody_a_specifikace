@@ -1,0 +1,208 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{makecell}
+
+\title{MI-FME Cvičení 7}
+\author{Tomáš Chvosta}
+\date{Březen 2020}
+
+\setcounter{secnumdepth}{-2} % no numbered sections
+\usepackage{czech}
+\begin{document}
+
+\maketitle
+
+\section{Cvičení 7a}
+Úloha byla vypracována na cvičení.
+
+\section{Cvičení 7b}
+
+\subsection{Zadání:}
+
+V teorii listů dokažte následující formuli:
+$$(\forall l, x, y)(l = cons(x, cons(y, empty())) \Rightarrow first(rest(l)) = y)$$
+
+
+\subsection{Důkaz:}
+Dokazujeme formuli, která má tvar $(\forall l,x,y)(F)$, což znamená, že zavedeme nové konstanty $a$,$b$ a $c$. Nechť tyto konstanty $a$,$b$,$c$ jsou libovolné ale pevné a dokažme $F[l\leftarrow a,x \leftarrow b, y \leftarrow c]$. Jedná se o implikaci, takže předpokládáme $a = cons(b, cons(c, empty()))$ a dokážeme $first(rest(a)) = c$.  Využijeme jedno z ekvivalentních pravidel, že $(\neg \neg(first(rest(a)) = c)) \Leftrightarrow  first(rest(a)) = c$. Nyní můžeme postupovat tak, že předpokládáme $\neg(first(rest(a)) = c)$ a najedeme spor. Do posledního předpokladu můžeme dosadit $a = cons(b, cons(c, empty()))$. V tuto chvíli můžeme využít jeden z axiomů, konkrétně $(\forall \mathrm{l,x})(rest(cons(\mathrm{x,l}))=\mathrm{l})$ a upravit poslední předpoklad na tvar $\neg(first(cons(c, empty()))) = c)$. Nyní můžeme využít dalšího axiomu, konkrétně $(\forall \mathrm{l,x})(first(cons(\mathrm{x,l}))=\mathrm{x})$ a upravit poslední předpoklad na tvar $\neg(c=c)$.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & & \makecell{$(a = cons(b, cons(c, empty()))$ \\ $\Rightarrow$ \\ $first(rest(a)) = c)$} \\ \hline
+    	2. & $a = cons(b, cons(c, empty()))$ & $first(rest(a)) = c$ \\ \hline
+    	3. & & $\neg \neg(first(rest(a)) = c)$ \\ \hline
+    	4. & $\neg(first(rest(a)) = c)$ & hledáme spor \\ \hline
+    	5. & $\neg(first(rest(cons(b, cons(c, empty())))) = c)$ & hledáme spor \\ \hline
+    	6. & axiom č. 1 $[x \leftarrow b, l \leftarrow cons(c,empty())]$ & hledáme spor \\ \hline
+    	7. & $\neg(first(cons(c, empty()))) = c)$ & hledáme spor \\ \hline
+    	8. & axiom č. 2 $[x \leftarrow c, l \leftarrow empty()]$ & hledáme spor \\ \hline
+    	9. & $\neg(c=c)$ \dots $\bot$ & hledáme spor \\ \hline
+    	
+    	\end{tabular}
+\end{table}
+
+\begin{table}[H]\centering
+
+    \caption{Tabulka využitých axiomů $(\mathrm{l \in \mathcal{L[T]}}, \mathrm{x \in \mathcal{T}})$:}
+
+\begin{tabular}{|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Číslo axiomu} & \textbf{Axiom} \\ \hline \hline
+    	1. & $(\forall \mathrm{l,x})(rest(cons(\mathrm{x,l}))=\mathrm{l})$ \\ \hline
+    	2. & $(\forall \mathrm{l,x})(first(cons(\mathrm{x,l}))=\mathrm{x})$ \\ \hline
+    	
+    	\end{tabular}
+\end{table}
+
+\section{Cvičení 7c}
+
+\subsection{Zadání:}
+
+V teorii polí dokažte následující formuli:
+$$(\exists a,i,j,x )(write(a,i,x)[j] \neq x)$$
+
+
+\subsection{Důkaz:}
+V tomto důkazu se snažíme dokázat formuli, která má tvar $(\exists a,i,j,x)(F)$, což znamená, že zvolíme nějaké termy, které dosadíme za $a,i,j,x$ a tuto formuli poté dokážeme. Pro tento důkaz můžeme zvolit termy $k,l,w,write(a,l,v)$ a následně dokážeme $F[a \leftarrow write(a,l,v), i \leftarrow k, x \leftarrow w, j \leftarrow l]$. Je nutné podotknout, že $k \neq l$ a také $w \neq v$. Proměnná $v$ značí libovolnou hodnotu. Nyní nastává čas využít axiom $(\forall a, v, i, j ) ( \neg [i = j] \Rightarrow write(a, i, v)[j] = a[j])$. Víme, že $k \neq l$, pak tedy podle tohoto axiomu platí, že $write(write(a,l,v),k,w)[l] = write(a,l,v)[l]$. Nyní využijeme axiom $(\forall a, v, i, j) ( i = j \Rightarrow write(a, i, v)[j] = v)$. Podle tohoto axiomu můžeme usoudit, že $write(a,l,v)[l] = v$. Dostáváme $v \neq w$, což už ale máme triviálně dokázáno.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & & \makecell{$F[a \leftarrow write(a,l,v),$ \\ $ i \leftarrow k,$ \\ $x \leftarrow w,$ \\ $j \leftarrow l],$ \\ kde $w \neq v$ a $k \neq l$}  \\ \hline
+    	2. & \makecell{axiom č. 1 \\ $[a \leftarrow write(a,l,v),$ \\ $ i \leftarrow k,$ \\ $v \leftarrow w,$ \\ $j \leftarrow l]$} & $write(write(a,l,v),k,w)[l] \neq w$ \\ \hline
+    	3. & \makecell{axiom č. 2 \\ $[a \leftarrow a,$ \\ $ i \leftarrow l,$ \\ $v \leftarrow v,$ \\ $j \leftarrow l]$} & $write(a,l,v)[l] \neq w$ \\ \hline
+    	4. & & $v \neq w $ \\ \hline
+    	
+    	\end{tabular}
+\end{table}
+
+\begin{table}[H]\centering
+
+    \caption{Tabulka využitých axiomů ($\mathrm{a} \in \mathcal{A[T]}, \mathrm{v} \in \mathcal{T}, \mathrm{i, j} \in  \mathcal{N} )$):}
+
+\begin{tabular}{|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Číslo axiomu} & \textbf{Axiom} \\ \hline \hline
+    	1. & $(\forall a, v, i, j) ( i = j \Rightarrow write(a, i, v)[j] = v)$ \\ \hline
+    	2. & $(\forall a, v, i, j ) ( \neg [i = j] \Rightarrow write(a, i, v)[j] = a[j])$ \\ \hline
+    	
+    	\end{tabular}
+\end{table}
+
+\section{Cvičení 7d}
+
+\subsection{Zadání:}
+
+V teorii polí dokažte následující formuli:
+$$(\forall a, i, j, x)((write(a, i, x)[j] = x) \Rightarrow (i = j \lor a[j] = x))$$
+
+
+\subsection{Důkaz:}
+
+Dokazujeme formuli, která má tvar $(\forall a, i, j, x)(F)$, což znamená, že zavedeme nové konstanty $p$,$k$,$l$ a $v$. Nechť tyto konstanty $p,k,l,v$ jsou libovolné ale pevné a dokažme $F[a\leftarrow p,i \leftarrow k, j \leftarrow l, x \leftarrow v]$. Dokazujeme implikaci, takže předpokládáme $write(p, k, v)[l] = v$ a dokážeme $k = l \lor p[l] = v$. Pro důkaz disjunkce předpokládejme, že platí $\neg (k = l)$ a dokažme $p[l] = v$. Nyní využijme následující axiom: $(\forall a, v, i, j ) ( \neg [i = j] \Rightarrow write(a, i, v)[j] = a[j])$. Jelikož ho můžeme použít jako platný předpoklad, můžeme také vhodně zvolit termy a usoudit  $write(p,k,v)[l] = p[l]$. Spolu s předpokladem $write(p, k, v)[l] = v$ můžeme usoudit, že $p[l] = v$, čímž úspěšně dokončíme důkaz.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & & \makecell{$write(a, i, x)[j] = x$ \\ $\Rightarrow$ \\ $i = j \lor a[j] = x$}  \\ \hline
+    	2. & $write(p, k, v)[l] = v$ & $k = l \lor p[l] = v$ \\ \hline
+    	3. & $\neg (k = l)$ & $p[l] = v$ \\ \hline
+    	4. & \makecell{axiom č. 1 \\ $[a \leftarrow p,$ \\ $ v \leftarrow v,$ \\ $i \leftarrow k,$ \\ $j \leftarrow l]$} & $p[l] = v$ \\ \hline
+    	5. & $write(p,k,v)[l] = p[l]$ & $p[l] = v$ \\ \hline
+    	5. & $p[l] = v$ & $p[l] = v$ \\ \hline
+    	
+    	\end{tabular}
+\end{table}
+
+\begin{table}[H]\centering
+
+    \caption{Tabulka využitých axiomů ($\mathrm{a} \in \mathcal{A[T]}, \mathrm{v} \in \mathcal{T}, \mathrm{i, j} \in  \mathcal{N} )$):}
+
+\begin{tabular}{|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Číslo axiomu} & \textbf{Axiom} \\ \hline \hline
+    	1. & $(\forall a, v, i, j ) ( \neg [i = j] \Rightarrow write(a, i, v)[j] = a[j])$ \\ \hline
+    	
+    	\end{tabular}
+\end{table}
+
+\section{Cvičení 7e}
+
+\subsection{Zadání:}
+
+Dokažte pomocí Peano axiomů s vyjímkou indukčního axiomu následující formuli:
+$$(\forall k )( 0 + k = k)$$
+Využijte principu slabé matematické indukce.
+
+
+\subsection{Důkaz:}
+
+Dle principu slabé matematické indukce nejprve provedeme důkaz pro $k = 0$. Dokazujeme tedy $(\forall k )( 0 + k = k)$ a zavedeme novou konstantu $0$ a dosadíme $( 0 + k = k)[k \leftarrow 0]$ a tedy dokážeme $0 + 0 = 0$. Pro dokázání této formule budeme potřebovat jeden z axiomů, konkrétně $(\forall x)(x + 0 = x)$, kdy můžeme zvolit term $0$ a usoudit  $(x + 0 = x)[x \leftarrow 0]$ tedy $0 + 0 = 0$, což úspěšně dokončí tuto část důkazu.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka $k = 0$}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. &  & \makecell{$(\forall k )( 0 + k = k)$ \\ $[k \leftarrow 0]$}  \\ \hline
+    	2. & \makecell{$(\forall x)(x + 0 = x)$ \\ $[x \leftarrow 0]$} & $0 + 0 = 0$  \\ \hline
+    	3. & $0 + 0 = 0$ & $0 + 0 = 0$  \\ \hline
+    	
+    	
+    	\end{tabular}
+\end{table}
+
+V druhé části důkazu (matematické indukce) předpokládáme $( 0 + k = k)$ a~dokážeme formuli pro $k \leftarrow k + 1$. Pokusíme se tedy dokázat $0+(k+1)=k+1$, k čemuž se nám bude hodit axiom $(\forall x, y)(x+(y+1)=(x+y)+1)$. V této části zvolíme dva termy $0$ a $k$ a~usoudíme $(x+(y+1)=(x+y)+1)[x \leftarrow 0,y \leftarrow k]$. Vzniknul nám tedy nový předpoklad $0+(k+1)=(0+k)+1$, do kterého můžeme z prvního předpokladu dosadit $0 + k = k$. Tím získáme nový předpoklad $0+(k+1)=k+1$, čímž úspěšně dokončíme důkaz.
+
+\begin{table}[H]\centering
+
+    \caption{Důkazová tabulka $k = k + 1$}
+
+\begin{tabular}{|c|c|c|}
+    
+    % \\ je novej radek | je cara \hline je horizontální čara
+    
+        \hline \textbf{Krok} & \textbf{Předpokládáme} & \textbf{Dokazujeme} \\ \hline \hline
+    	1. & $0 + k = k$ & \makecell{$(\forall k )( 0 + k = k)$ \\ $[k \leftarrow k + 1]$}  \\ \hline
+    	2. & & $0+(k+1)=k+1$ \\ \hline
+    	3. & \makecell{$(\forall x, y)(x+(y+1)=(x+y)+1)$ \\ $[x \leftarrow 0,y \leftarrow k]$} & $0+(k+1)=k+1$ \\ \hline
+    	4. & $0+(k+1)=(0+k)+1$ & $0+(k+1)=k+1$ \\ \hline
+    	5. & $0+(k+1)=k+1$ & $0+(k+1)=k+1$ \\ \hline
+    	
+    	\end{tabular}
+\end{table}
+
+\section{Cvičení 7f}
+Úloha bude vypracována na cvičení.
+
+\end{document}
