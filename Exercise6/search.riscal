@@ -1,0 +1,26 @@
+val N=32;
+
+type elem = ℕ[16];
+type array = Array[N,elem];
+type index = ℕ[N-1];
+
+pred atpos(s: array, len_s: index, a: array, len_a: index, p: index) <=>
+     len_s<= N /\ p+len_a <= len_s /\
+     ∀ i: index . i<len_a =>  ((s[p+i]=a[i]) \/ (a[i]=0)) ; 
+     
+fun contains(s: array, len_s: index, a: array, len_a: index): Set[index] = 
+    { p | p:index with atpos(s, len_s, a, len_a, p) };
+       
+proc exec(): () {
+  	/*var s: array= Array[N,elem](3,2,1,2);
+  	var a: array= Array[N,elem](1,0);
+	var a: array= Array[N,elem](0,2); */
+
+	var s: array= Array[N,elem](3,2,1,2,5,1,5,9);
+  	var a: array= Array[N,elem](1,0);
+  
+  print contains(s, 8, a, 2); 
+}
+
+
+
