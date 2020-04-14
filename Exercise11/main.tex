@@ -1,0 +1,138 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{makecell}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\N}{\mathbb{N}}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\usepackage{amsfonts}
+
+\title{MI-FME Cvičení 11}
+\author{Tomáš Chvosta}
+\date{Duben 2020}
+
+\setcounter{secnumdepth}{-2} % no numbered sections
+\usepackage{czech}
+\begin{document}
+
+\maketitle
+
+Uvažujte následující specifikaci programu:
+
+\begin{itemize}
+    \item Input: $x, y \in \N_0, y \geq 1$
+    \item Output: $xy$
+\end{itemize}
+$r \leftarrow x \newline i \leftarrow 1 \newline$ \textbf{while} $i < y$ \textbf{do} $\newline \tab @ \newline \tab r \leftarrow r + x \newline \tab i \leftarrow i + 1 \newline @\ r = xy \newline$ \textbf{return} $r$ 
+
+\section{Cvičení 11a}
+
+\subsection{Zadání}
+Vytvořte tabulku, která bude ukazovat hodnoty proměnných $r$ a $i$ v místě programu s chybějící assertací ve všech iteracích cyklu pro nějaké netriviální vstupy $x$ a $y$.
+
+\subsection{Řešení}
+Nejprve pojďme zvolit dvě libovolné hodnoty $x$ a $y$ (samozřejmě tak, aby platilo, že $x, y \in \N_0, y \geq 1$). Například $x = 10$ a $y = 5$. Následující tabulka zobrazuje hodnoty proměnných $i$ a $r$ v místě programu s chybějící assertací pro celý běh programu:
+\begin{table}[H]\centering
+    \begin{tabular}{||c|c||}
+            \hline $i$ & $r$  \\ \hline \hline
+    	    1 & 10 \\  \hline
+    	    2 & 20 \\  \hline
+    	    3 & 30 \\  \hline
+    	    4 & 40 \\  \hline
+    \end{tabular}
+\end{table}
+
+Nyní si pojďme ukázat, jak bude tabulka vypadat pro obecné hodnoty $x, y$ a $n \in \{1, ..., y-1\}$ :
+\begin{table}[H]\centering
+    \begin{tabular}{||c|c||}
+            \hline $i$ & $r$  \\ \hline \hline
+    	    1 & $x$ \\  \hline
+    	    2 & $2x$ \\  \hline
+    	    3 & $3x$ \\  \hline
+    	    \makecell{.\\ .\\. } & \makecell{.\\ .\\. } \\  \hline
+    	    $n$ & $nx$ \\  \hline
+    	    \makecell{.\\ .\\. } & \makecell{.\\ .\\. } \\  \hline
+    	    $y - 1$ & $( y - 1 )x$ \\  \hline
+    \end{tabular}
+\end{table}
+
+
+\section{Cvičení 11b}
+
+\subsection{Zadání}
+Pokuste se odhadnout chybějící assertaci uvnitř cyklu.
+
+\subsection{Řešení}
+Z předchozích tabulek se můžeme pokusit odhadnout, který výraz bychom mohli doplnit do assertace na začátku cyklu. Z tabulky lze vypozorovat následující vlastnosti:
+\begin{itemize}
+    \item $r = ix$
+    \item $i < y$
+\end{itemize}
+Pojďme tedy tyto dvě vlastnosti doplnit do assertace na začátku cyklu. Doplněním vznikne následující program:$\newline\newline r \leftarrow x \newline i \leftarrow 1 \newline$ \textbf{while} $i < y$ \textbf{do} $\newline \tab @\ r = ix \wedge i < y \newline \tab r \leftarrow r + x \newline \tab i \leftarrow i + 1 \newline @\ r = xy \newline$ \textbf{return} $r$
+
+\section{Cvičení 11c}
+
+\subsection{Zadání}
+Zapište odpovídající základní cesty programu a zkontrolujte, zda platí jejich ověřovací podmínky.
+
+\subsection{Řešení}
+Z programu v předchozí sekci lze vytvořit následující základní cesty programu.
+
+\subsubsection{Základní cesta 1}
+$r \leftarrow x \newline i \leftarrow 1 \newline$ \textbf{assume} $\neg(i < y) \newline @\ r = xy$ 
+
+\subsubsection{SSA forma 1}
+V tomto případě není třeba zavádět nové názvy proměnných.
+
+\subsubsection{Logická formule 1}
+$$(\forall x,y,r,i \in \N_0, y \geq 1)([r = x \wedge i = 1 \wedge \neg(i<y)] \Rightarrow r = xy )$$
+
+\subsubsection{Ověřovací podmínka 1}
+Máme předpoklady $r = x$, $i = 1$, $\neg(i < y)$ a máme dokázat $r = xy$. Z předpokladů $\neg(i < y)$ a $i = 1$ můžeme vytvořit předpoklad $y \leq 1$. Jelikož však zadání definuje, že $y \geq 1$, může $y$ nabývat pouze hodnoty $y = 1$. Použijeme tedy předpoklady $r = x$ a $ y = 1$ a dosadíme je do dokazované části formule $r = xy$, čímž dostaneme $x = x$, což je triviálně dokázáno. Ověřovací podmínka pro základní cestu 1 tedy platí.
+
+\subsubsection{Základní cesta 2}
+$r \leftarrow x \newline i \leftarrow 1 \newline$ \textbf{assume} $i < y \newline @\ r = ix \wedge i < y$ 
+
+\subsubsection{SSA forma 2}
+V tomto případě není třeba zavádět nové názvy proměnných.
+
+\subsubsection{Logická formule 2}
+$$(\forall x,y,r,i \in \N_0, y \geq 1)([r = x \wedge i = 1 \wedge i < y] \Rightarrow [r = ix \wedge i < y]  )$$
+
+\subsubsection{Ověřovací podmínka 2}
+Máme předpoklady $r = x$, $i = 1$, $i < y$ a máme dokázat $r = ix \wedge i < y$, tedy dokázat zvlášť $r = ix$ a $i < y$. Můžeme si všimnout, že $i < y$ je zároveň i předpoklad, tedy tuto část máme triviálně dokázanou. Nyní použijeme předpoklady $r = x$ a $ i = 1$ a dosadíme je do dokazované části formule $r = ix$, čímž dostaneme $x = x$, což je triviálně dokázáno. Ověřovací podmínka pro základní cestu 2 tedy platí.
+
+\subsubsection{Základní cesta 3}
+\textbf{assume} $r = ix \wedge i < y \newline \tab r \leftarrow r + x \newline \tab i \leftarrow i + 1 \newline$ \textbf{assume} $i < y \newline @\ r = ix \wedge i < y$  
+
+\subsubsection{SSA forma 3}
+\textbf{assume} $r = ix \wedge i < y \newline \tab r_1 \leftarrow r + x \newline \tab i_1 \leftarrow i + 1 \newline$ \textbf{assume} $i_1 < y \newline @\ r_1 = i_1x \wedge i_1 < y$  
+
+\subsubsection{Logická formule 3}
+$$(\forall x,y,r,i \in \N_0, y \geq 1)$$ $$([r = ix \wedge i < y \wedge r_1 = r + x \wedge i_1 = i + 1 \wedge i_1 < y] \Rightarrow [r_1 = i_1x \wedge i_1 < y]  )$$
+
+\subsubsection{Ověřovací podmínka 3}
+Máme předpoklady $r = ix$, $i < y$, $r_1 = r + x$, $i_1 = i + 1$, $i_1 < y$ a máme dokázat $r_1 = i_1x \wedge i_1 < y$, tedy dokázat zvlášť $r_1 = i_1x$ a $i_1 < y$. Můžeme si všimnout, že $i_1 < y$ je zároveň i předpoklad, tedy tuto část máme triviálně dokázanou. Z~předpokladů $r = ix$ a $r_1 = r + x$ můžeme vytvořit nový předpoklad $r_1 = (i + 1)x$. Do tohoto předpokladu můžeme dosadit předpoklad $i_1 = i + 1$, čímž vznikne předpoklad $r_1 = i_1x$, což jsme zároveň měli dokázat. Ověřovací podmínka pro základní cestu 3 tedy platí.
+
+\subsubsection{Základní cesta 4}
+\textbf{assume} $r = ix \wedge i < y \newline \tab r \leftarrow r + x \newline \tab i \leftarrow i + 1 \newline$ \textbf{assume} $\neg(i < y) \newline @\ r = xy$
+
+\subsubsection{SSA forma 4}
+\textbf{assume} $r = ix \wedge i < y \newline \tab r_1 \leftarrow r + x \newline \tab i_1 \leftarrow i + 1 \newline$ \textbf{assume} $\neg(i_1 < y) \newline @\ r_1 = xy$
+\subsubsection{Logická formule 4}
+$$(\forall x,y,r,i \in \N_0, y \geq 1)$$ $$([r = ix \wedge i < y \wedge r_1 = r + x \wedge i_1 = i + 1 \wedge \neg(i_1 < y)] \Rightarrow r_1 = xy )$$
+
+\subsubsection{Ověřovací podmínka 4}
+Máme předpoklady $r = ix$, $i < y$, $r_1 = r + x$, $i_1 = i + 1$, $\neg(i_1 < y)$ a máme dokázat $r_1 = xy$. Z předpokladů $r = ix$ a $r_1 = r + x$ můžeme vytvořit nový předpoklad $r_1 = (i + 1)x$. Do tohoto předpokladu můžeme dosadit předpoklad $i_1 = i + 1$, čímž vznikne nový předpoklad $r_1 = i_1x$. Dále můžeme získat z~ předpokladu $\neg(i_1 < y)$ předpoklad $y \leq i_1$, který můžeme následně spojit s předpokladem $i < y$, čímž získáme předpoklad $i < y \leq i_1$ z čehož zjistíme, že $y = i_1$. Tento nový předpoklad můžeme dosadit do předpokladu $r_1 = i_1x$ a tím zíksat $r_1 = xy$, což jsme zároveň měli dokázat. Ověřovací podmínka pro základní cestu 4 tedy platí.
+
+\section{Cvičení 11d}
+
+\subsection{Zadání}
+Pokud jsou všechny základní cesty programu korektní, stejně tak jako celý algoritmus, pak je úkol dokončen. V opačném případě upravte assertaci uvnitř cyklu a pokračujte předchozími dvěma úkoly, dokud nejsou všechny základní cesty korektní.
+
+\subsection{Řešení}
+V předchozí sekci si můžeme všimnout, že všechny základní cesty programu jsou korektní a tím tedy i celý algoritmus.
+
+\end{document}
