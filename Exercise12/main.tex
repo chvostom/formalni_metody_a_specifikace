@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{makecell}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\N}{\mathbb{N}}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\usepackage{amsfonts}
+
+\title{MI-FME Cvičení 12}
+\author{Tomáš Chvosta}
+\date{Duben 2020}
+
+\setcounter{secnumdepth}{-2} % no numbered sections
+\usepackage{czech}
+\begin{document}
+
+\maketitle
+
+\section{Zadání}
+Uvažujte funkci s následujícím chováním:\newline\newline \textbf{function} $s(a,k)$\newline \textbf{Input:} $a \in \mathcal{A}, k \in \mathcal{N}$ s.t. $k \geq 1$ \newline \textbf{Output:} $1 + \sum_{i \in \{0,...,k-1\}}^{} a[i]$ \newline
+
+Dokažte že je následující program zcela korektní ($p$ je pole proměnných typu integer, ostatní proměnné jsou typu integer):\newline\newline \textbf{assume} $\forall i\ .\ p[i] \geq 5 \newline r \leftarrow s(p,2) \newline @\ r \geq 8$ \newline
+
+Dodržujte metody pro zpracování volání funkcí, které jsou uvedené v přednáškách. Kromě toho také používejte dokazovací pravidla pro kvantifikátory. Můžete však libovolně využívat jakékoliv znalosti ohledně proměnných typů pole a integer.
+
+\section{Řešení}
+
+Nejprve si můžeme všimnout, že výstup ve specifikaci funkce nemá přiřazený žádný název, tedy žádnou výstupní proměnnou. Upravíme tedy specifikaci na následující tvar: \newline\newline \textbf{function} $s(a,k)$\newline \textbf{Input:} $a \in \mathcal{A}, k \in \mathcal{N}$ s.t. $k \geq 1$ \newline \textbf{Output:} $r$ s.t. $r = 1 + \sum_{i \in \{0,...,k-1\}}^{} a[i]$ \newline\newline Upravená specifikace poté odpovídá následující logické formuli: 
+$$(\forall a \in \mathcal{A}, k, r \in \mathcal{N})((k \geq 1 \wedge r = s(a,k)) \Rightarrow  (r = 1 + \sum_{i = 0}^{k-1} a[i]))$$ Tuto formuli můžeme nyní brát jako předpoklad pro důkazy, ve kterých se bude vyskytovat naše funkce $s$. Pojďme si nyní převést do logické formule i náš program. Program je v SSA formě, takže rovnou získáváme logickou formuli:
+$$(\forall i,r \in \mathcal{N}, p \in \mathcal{A})((p[i] \geq 5 \wedge r = s(p,2)) \Rightarrow (r \geq 8))$$
+Z předpokladu, který popisuje funkci $s$ po volbě $a \leftarrow p,\ k \leftarrow 2$, víme:
+$$(\forall i,r \in \mathcal{N}, p \in \mathcal{A})((p[i] \geq 5 \wedge r = 1 + \sum_{i = 0}^{1} p[i]) \Rightarrow (r \geq 8))$$
+Máme tedy předpoklady $p[i] \geq 5$ a  $r = 1 + p[0] + p[1]$ a máme dokázat $r \geq 8$. Víme, že předpoklad $p[i] \geq 5$ platí pro všechna $i$, po volbách $i \leftarrow 0$ a $i \leftarrow 1$ získáváme nové předpoklady $p[0] \geq 5$ a $p[1] \geq 5$. Dále můžeme využít předpoklad $r = 1 + p[0] + p[1]$ a upravit dokazovaný výraz na tvar $1 + p[0] + p[1] \geq 8$ tedy $p[0] + p[1] \geq 7$. To můžeme dokázat například sporem. Předpokládáme  $\neg (p[0] + p[1] \geq 7)$ tedy $p[0] + p[1] < 7$ a pokusíme se najít spor. Tento nový předpoklad můžeme upravit na tvar $p[0] - 7 < -p[1]$. Dále pak předpoklad $p[1] \geq 5$ upravíme a získáme předpoklad $-p[1] \leq -5$ a také upravíme předpoklad $p[0] \geq 5$ a získáme předpoklad $p[0] - 7 \geq 5 - 7$ tedy $p[0] - 7 \geq -2$. Pokud spojíme předpoklady $p[0] - 7 < -p[1]$, $-p[1] \leq -5$ a $p[0] - 7 \geq -2$ získáme $-2 \leq p[0] - 7 < -p[1] \leq -5$ tedy $-2 \leq -5$, čímž jsme došli ke sporu a naše formule platí. Program je tedy korektní.
+
+\end{document}
