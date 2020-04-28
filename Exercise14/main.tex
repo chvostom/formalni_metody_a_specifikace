@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{makecell}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\N}{\mathbb{N}}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\usepackage{amsfonts}
+
+\title{MI-FME Cvičení 14}
+\author{Tomáš Chvosta}
+\date{Duben 2020}
+
+\setcounter{secnumdepth}{-2} % no numbered sections
+\usepackage{czech}
+\begin{document}
+
+\maketitle
+
+\section{Zadání}
+
+Přidejte logické formule představující assertace na řádky programu začínající symbolem $@$ tak, aby platily všechny ověřovací podmínky. Není potřeba cokoliv dokazovat, neformální argumenty bohatě postačí. Neměňte však samotný program. \newline\newline \textbf{assume} $r = 0 \wedge s = 0$ \newline \textbf{for} $i \leftarrow 0$ \textbf{to} $n$ \textbf{do} \newline $\tab@$ \newline \tab \textbf{if} $a[i] < 0$ \textbf{then} $r \leftarrow r + 1$ \newline $\tab@$ \newline \tab \textbf{if} $a[i] > 0$ \textbf{then} $s \leftarrow s + 1$ \newline \tab $@$ \newline $@\ r + s = |\{i \in \{0,\dots,n\}\ |\ a[i] \neq 0\}|$
+
+\section{Řešení}
+
+Pojďme si nyní znázornit ukázkový běh programu. Nejprve si označíme program následujícím způsobem: \newline\newline \textbf{assume} $r = 0 \wedge s = 0$ \newline \textbf{for} $i \leftarrow 0$ \textbf{to} $n$ \textbf{do} \newline $\tab@$ A1 \newline \tab \textbf{if} $a[i] < 0$ \textbf{then} $r \leftarrow r + 1$ \newline $\tab@$ A2 \newline \tab \textbf{if} $a[i] > 0$ \textbf{then} $s \leftarrow s + 1$ \newline \tab $@$ A3 \newline $@\ r + s = |\{i \in \{0,\dots,n\}\ |\ a[i] \neq 0\}|$ \newline\newline
+Dále dosadíme například $a \leftarrow [4,-8,0,3]$, $n \leftarrow 3$. Běh programu je znázorněn v následující tabulce:
+
+\begin{table}[H]\centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline $i$ & \textbf{Assertace} & $r$ & $s$ & $r + s$ \\ \hline \hline
+    	0 & A1 & 0 & 0 & 0 \\  \hline
+    	0 & A2 & 0 & 0 & 0 \\  \hline
+    	0 & A3 & 0 & 1 & 1 \\  \hline
+    	1 & A1 & 0 & 1 & 1 \\  \hline
+    	1 & A2 & 1 & 1 & 2 \\  \hline
+    	1 & A3 & 1 & 1 & 2 \\  \hline
+    	2 & A1 & 1 & 1 & 2 \\  \hline
+    	2 & A2 & 1 & 1 & 2 \\  \hline
+    	2 & A3 & 1 & 1 & 2 \\  \hline
+    	3 & A1 & 1 & 1 & 2 \\  \hline
+    	3 & A2 & 1 & 1 & 2 \\  \hline
+    	3 & A3 & 1 & 2 & 3 \\  \hline
+    \end{tabular}
+\end{table} 
+
+Můžeme si všimnout toho, že proměnná $r$ obsahuje aktuální počet prvků pole $a$ v jednoltivých iteracích cyklu, kdy jednotlivé prvky jsou menší než 0. Naopak proměnná $s$ obsahuje aktuální počet prvků pole $a$ v jednoltivých iteracích cyklu, kdy jednotlivé prvky jsou větší než 0. V bodě A1 jsou však v proměnných $r$, $s$ uloženy počty z předchozích iterací, tedy pro iteraci, kde $i = k$, jsou započítány prvky v poli $a$ na pozicích 0 až $k - 1$. V bodě A2 je v proměnné $r$ uložen počet z aktuální iterace, tedy pro iteraci, kde $i = k$, jsou započítány prvky v poli $a$ na pozicích 0 až $k$, v proměnné $s$ je uložen počet z předchozí iterace. V bodě A3 jsou zase v proměnných $r$, $s$ uloženy počty z aktuální iterace.
+
+To však nejsou jediné zákonitosti, které můžeme vypozorovat. Jelikož jsou assertace uvnitř cyklu, je třeba přidat do assertace podmínku $i \leq n$. Výsledný program s doplněnými assertacemi bude vypadat následovně: \newline\newline \textbf{assume} $r = 0 \wedge s = 0$ \newline \textbf{for} $i \leftarrow 0$ \textbf{to} $n$ \textbf{do} \newline $\tab@\ r = |\{k \in \{0,\dots,i - 1\}\ |\ a[k] < 0\}| \wedge \newline \tab \phantom{@} \ s = |\{k \in \{0,\dots,i - 1\}\ |\ a[k] > 0\}| \wedge \newline \tab \phantom{@} \ i \leq n$ \newline \tab \textbf{if} $a[i] < 0$ \textbf{then} $r \leftarrow r + 1$ \newline $\tab@\ r = |\{k \in \{0,\dots,i\}\ |\ a[k] < 0\}| \wedge \newline \tab \phantom{@} \ s = |\{k \in \{0,\dots,i - 1\}\ |\ a[k] > 0\}| \wedge \newline \tab \phantom{@} \ i \leq n$ \newline \tab \textbf{if} $a[i] > 0$ \textbf{then} $s \leftarrow s + 1$ \newline \tab $@\ r = |\{k \in \{0,\dots,i\}\ |\ a[k] < 0\}| \wedge \newline \tab \phantom{@} \ s = |\{k \in \{0,\dots,i\}\ |\ a[k] > 0\}| \wedge \newline \tab \phantom{@} \ i \leq n$ \newline $@\ r + s = |\{i \in \{0,\dots,n\}\ |\ a[i] \neq 0\}|$ \newline
+
+Po vypsání všech základních cest programu a všech logických formulí vycházejících z těchto základních cest lze snadno zjistit, že všechny ověřovací podmínky platí. Dle zadání to však už není součástí tohoto úkolu.
+
+\end{document}
