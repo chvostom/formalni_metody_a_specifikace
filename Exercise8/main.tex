@@ -33,7 +33,7 @@ $$[pc=1 \wedge pc' = pc + 1 \wedge i' = 1 \wedge x' = x \wedge a' = a ]$$
 $$\lor$$
 $$[pc=2 \wedge [i<10 \Rightarrow pc' = pc + 1] \wedge [i \geq 10 \Rightarrow pc' = 6] \wedge i' = i \wedge x' = x \wedge a' = a]$$
 $$\lor$$
-$$[pc = 3 \wedge pc' = pc + 1 \wedge i' = i \wedge x' = input() \wedge a' = a ]$$
+\textcolor{red}{$$[pc = 3 \wedge pc' = pc + 1 \wedge i' = i \wedge x' = input() \wedge a' = a ]$$}
 $$\lor$$
 $$[pc = 4 \wedge pc' = pc + 1 \wedge [x \geq 0 \Rightarrow i' = i + 1] \ \wedge$$
 $$ [x < 0 \Rightarrow i' = i + 2] \wedge x' = x \wedge a' = a ]$$
@@ -42,5 +42,8 @@ $$[pc = 5 \wedge pc' = 2 \wedge i' = i \wedge x' = x \wedge a' = write(a, i, a[i
 $$\lor$$
 $$[pc = 6 \wedge \bot]$$
 
+\textcolor{red}{\section{Poznámky opravujícího} Řádek 3: na přednášce jsem podrobně vysvětlil, proč to takto nefunguje, podívejte se prosím ještě jednou na to.}
+
+\textcolor{red}{\section{Oprava} Správně tedy opravený 3. řádek vypadá nejspíše takto: $$[pc = 3 \wedge pc' = pc + 1 \wedge i' = i \wedge a' = a ]$$ Vycházím tak ze slajdů přednášky 4, která se týká operační sémantiky programů. Zde je totiž na slajdu 19 uvedeno, že pokud $s(pc)$ odkazuje na řádek \textbf{input} $v$, potom: $$ s \sqcup \pi(s') \models pc' = pc + 1 \wedge \bigwedge_{u \in V, u \neq v} u' = u $$}
 
 \end{document}
