@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{makecell}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\N}{\mathbb{N}}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\usepackage{amsfonts}
+
+\title{MI-FME Cvičení 15}
+\author{Tomáš Chvosta}
+\date{Duben 2020}
+
+\setcounter{secnumdepth}{-2} % no numbered sections
+\usepackage{czech}
+\begin{document}
+
+\maketitle
+
+\section{Zadání}
+
+Přidejte logické formule představující assertace na řádky programu začínající symbolem $@$ tak, aby platily všechny ověřovací podmínky. Není potřeba cokoliv dokazovat, neformální argumenty bohatě postačí. Pokud se stane, že najdete chybu v programu (předpokládám, že ji najdete), opravte ji. \newline\newline $found \leftarrow \bot$ \newline \textbf{for} $i \leftarrow 0$ \textbf{to} $n - k$ \textbf{do} \newline \tab $@$ \newline \tab $p \leftarrow \top$ \newline \tab \textbf{for} $j \leftarrow 0$ \textbf{to} $k - 1$ \textbf{do} \newline \tab \tab $@$ \newline \tab \tab \textbf{if} $a[i+j] \neq s[j]$ \textbf{then} \newline \tab \tab \tab $p \leftarrow \bot$ \newline \tab \tab $@$ \newline \tab \textbf{if} $p$ \textbf{then} $found \leftarrow \top$ \newline \tab $@$ \newline $@\ found  \Leftrightarrow \exists r\ .\ substr(a, n, s, k, r)$ \newline\newline Je použitá následující definice: \newline $$(\forall a \in \mathcal{A}, n \in \mathcal{N}, s \in \mathcal{A}, k \in \mathcal{N}, p \in \mathcal{N})$$ $$(substr(a,n,s,k,p): \Leftrightarrow (\forall i \in \{0,\dots,k-1\})(p + i < n \wedge a[p + i] = s[i]))$$
+
+\section{Řešení}
+Můžeme si všimnout, že program obsahuje dva for cykly a assertace, které máme za úkol doplnit, jsou vždy na začátku a na konci těchto cyklů. Vnější for cyklus se snaží najít index $i$ v poli $a$, který značí výskyt pole $s$. Pokud ho najde změní hodnotu proměnné $found$ na $\top$. Vnitřní cyklus kontroluje, zda se na daném indexu $i$ v poli $a$ všechny prvky z pole $s$ skutečně vyskytují. Pokud ne, uloží do proměnné $p$ hodnotu $\bot$.
+
+V assertaci na začátku vnitřního cyklu by tedy mělo platit, že $p$ platí, právě když pro všechny doposud zkontrolované $j$ se prvky polí shodovali. K tomu můžeme využít definovaný predikát $substr$. To samé bude i na konci cyklu, akorát zde si musíme uvědomit, že jsme zkontrolovali o jednu hodnotu $j$ navíc.
+
+V assertaci na začátku vnějšího cyklu by zase mělo platit, že $found$ platí, právě když mezi doposud projitými indexi $i$ existuje takový, který představuje počáteční index v poli $a$, kde se vyskytuje $s$. Opět můžeme využít definici predikátu $substr$.
+
+Nesmíme opomenout ještě jednu věc. Do assertací bychom měli doplnit podmínky, že $i \leq n - k$ a také $ j \leq k - 1$, abychom měli zaručeno, že ve všech základních cestách programu máme v proměnných korektní hodnoty. Program s doplněnými assertacemi bude vypadat následovně: \newline\newline $found \leftarrow \bot$ \newline \textbf{for} $i \leftarrow 0$ \textbf{to} $n - k$ \textbf{do} \newline \tab $@\ (found \Leftrightarrow ((\exists r \in \{0,\dots,i - 1\}) (substr(a, n, s, k, r)))) \wedge i \leq n - k$ \newline \tab $p \leftarrow \top$ \newline \tab \textbf{for} $j \leftarrow 0$ \textbf{to} $k - 1$ \textbf{do} \newline \tab \tab $@\ (p \Leftrightarrow substr( a, n, s, j, i )) \wedge i \leq n - k \wedge j \leq k - 1$ \newline \tab \tab \textbf{if} $a[i+j] \neq s[j]$ \textbf{then} \newline \tab \tab \tab $p \leftarrow \bot$ \newline \tab \tab $@\ (p \Leftrightarrow substr( a, n, s, j + 1, i )) \wedge i \leq n - k \wedge j \leq k - 1$ \newline \tab \textbf{if} $p$ \textbf{then} $found \leftarrow \top$ \newline \tab $@\ (found \Leftrightarrow ((\exists r \in \{0,\dots,i\}) (substr(a, n, s, k, r)))) \wedge i \leq n - k$ \newline $@\ found  \Leftrightarrow \exists r\ .\ substr(a, n, s, k, r)$ \newline \newline 
+Po podrobnějším zkoumání programu si můžeme všimnout, že program nefunguje korektně v případě, že $n = 0$ a zároveň $k = 0$. Proměnná $found$ je triviálně $\top$, nicméně neexistuje $r$ takové, že by splňovalo $substr(a, n, s, k, r)$. To však dokážeme jednoduše opravit upravením podmínky v assertaci na konci programu. Program pak bude vypadat následovně: \newline\newline $found \leftarrow \bot$ \newline \textbf{for} $i \leftarrow 0$ \textbf{to} $n - k$ \textbf{do} \newline \tab $@\ (found \Leftrightarrow ((\exists r \in \{0,\dots,i - 1\}) (substr(a, n, s, k, r)))) \wedge i \leq n - k$ \newline \tab $p \leftarrow \top$ \newline \tab \textbf{for} $j \leftarrow 0$ \textbf{to} $k - 1$ \textbf{do} \newline \tab \tab $@\ (p \Leftrightarrow substr( a, n, s, j, i )) \wedge i \leq n - k \wedge j \leq k - 1$ \newline \tab \tab \textbf{if} $a[i+j] \neq s[j]$ \textbf{then} \newline \tab \tab \tab $p \leftarrow \bot$ \newline \tab \tab $@\ (p \Leftrightarrow substr( a, n, s, j + 1, i )) \wedge i \leq n - k \wedge j \leq k - 1$ \newline \tab \textbf{if} $p$ \textbf{then} $found \leftarrow \top$ \newline \tab $@\ (found \Leftrightarrow ((\exists r \in \{0,\dots,i\}) (substr(a, n, s, k, r)))) \wedge i \leq n - k$ \newline $@\ (found  \Leftrightarrow \exists r\ .\ substr(a, n, s, k, r)) \lor ((n = 0) \wedge (k = 0) )$ \newline\newline
+Po vypsání všech základních cest programu a všech logických formulí vycházejících z těchto základních cest lze snadno zjistit, že všechny ověřovací podmínky platí. Dle zadání to však už není součástí tohoto úkolu.
+
+\end{document}
