@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{makecell}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\N}{\mathbb{N}}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{todonotes}
+
+\usepackage{amsfonts}
+
+\title{MI-FME Cvičení 16}
+\author{Tomáš Chvosta}
+\date{Květen 2020}
+
+\setcounter{secnumdepth}{-2} % no numbered sections
+\usepackage{czech}
+\begin{document}
+
+\maketitle
+
+\section{Zadání}
+
+1:\tab $x \leftarrow x + 1$ \newline
+2:\tab \textbf{input} $y$ \newline
+3:\tab \textbf{if} $x > 7$ \textbf{then} \newline
+4:\tab\tab $y \leftarrow xy + z$ \newline
+5:\tab\tab \textbf{if} $y > 3$ \textbf{then} \newline
+6:\tab\tab\tab $x \leftarrow x + 1$ \newline
+7:\tab\tab \textbf{else} \newline
+8:\tab\tab\tab $x \leftarrow x - 1$ \newline
+
+Napište logické formule pro symbolické provedení řádků programu 1, 2, 3, 4, 5, 6 a poté řádků programu 1, 2, 3, 4, 7, 8. Použijte zjednodušenou verzi této formule, která je ve tvaru $X_{l_1,\dots,l_n}(P) \equiv F_{pre}(SSA(BP_{l_1\dots,l_n}(P)))$. V této úloze není potřeba psát mezikroky (tj. ani $BP_{l_1\dots,l_n}(P)$, ani SSA formu). Také není třeba řešit výsledek formule. 
+
+\section{Řešení}
+
+V této úloze budeme používat značení \textbf{program A} pro řádky programu 1, 2, 3, 4, 5, 6 a \textbf{program B} pro řádky programu 1, 2, 3, 4, 7, 8. Přestože je v~zadání uvedeno, že není potřeba psát $BP_{l_1\dots,l_n}(P)$, ani SSA formu, bude lepší a~přehlednější si tyto kroky uvést. 
+
+\subsection{Základní cesty programu A }
+$x \leftarrow x + 1$ \newline
+\textbf{input} $y$ \newline
+\textbf{assume} $x > 7$ \newline
+$y \leftarrow xy + z$ \newline
+\textbf{assume} $y > 3$ \newline
+$x \leftarrow x + 1$ \newline
+$@\ \bot$
+
+\subsection{SSA forma programu A}
+$x_2 \leftarrow x_1 + 1$ \newline
+\textbf{input} $y_1$ \newline
+\textbf{assume} $x_2 > 7$ \newline
+$y_2 \leftarrow x_2y_1 + z_1$ \newline
+\textbf{assume} $y_2 > 3$ \newline
+$x_3 \leftarrow x_2 + 1$ \newline
+$@\ \bot$
+
+\subsection{Výsledná logická formule pro program A}
+$$[x_2 = x_1 + 1 \wedge x_2 > 7 \wedge y_2 = x_2y_1 + z_1 \wedge y_2 > 3 \wedge  x_3 = x_2 + 1] \Rightarrow \bot$$
+\subsection{Základní cesty programu B }
+$x \leftarrow x + 1$ \newline
+\textbf{input} $y$ \newline
+\textbf{assume} $x > 7$ \newline
+$y \leftarrow xy + z$ \newline
+\textbf{assume} $\neg(y > 3)$ \newline
+$x \leftarrow x - 1$ \newline
+$@\ \bot$
+
+
+\subsection{SSA forma programu B}
+$x_2 \leftarrow x_1 + 1$ \newline
+\textbf{input} $y_1$ \newline
+\textbf{assume} $x_2 > 7$ \newline
+$y_2 \leftarrow x_2y_1 + z_1$ \newline
+\textbf{assume} $\neg(y_2 > 3)$ \newline
+$x_3 \leftarrow x_2 - 1$ \newline
+$@\ \bot$
+
+\subsection{Výsledná logická formule pro program B}
+$$[x_2 = x_1 + 1 \wedge x_2 > 7 \wedge y_2 = x_2y_1 + z_1 \wedge y_2 \leq 3 \wedge  x_3 = x_2 - 1] \Rightarrow \bot$$
+
+\end{document}
