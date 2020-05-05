@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{makecell}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\N}{\mathbb{N}}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{todonotes}
+
+\usepackage{amsfonts}
+
+\title{MI-FME Cvičení 17}
+\author{Tomáš Chvosta}
+\date{Květen 2020}
+
+\setcounter{secnumdepth}{-2} % no numbered sections
+\usepackage{czech}
+\begin{document}
+
+\maketitle
+
+\section{Zadání}
+
+1:\tab $x \leftarrow x + 1$ \newline
+2:\tab \textbf{input} $y$ \newline
+3:\tab \textbf{if} $x > 7$ \textbf{then} \newline
+4:\tab\tab $y \leftarrow ext(y)$ \newline
+5:\tab\tab \textbf{if} $y > 3$ \textbf{then} \newline
+6:\tab\tab\tab $x \leftarrow x + 1$ \newline
+7:\tab\tab \textbf{else} \newline
+8:\tab\tab\tab $x \leftarrow x - 1$ \newline
+
+Demonstrujte, jak metoda \uv{concolic testing} zkouší nalézt testovací případ pro provedení řádků programu 1, 2, 3, 4, 7, 8. K provedení externí funkce využijte přiložený program \texttt{rand.c} v jazyce C (jednoduše zkompilujte, spusťte, zadejte číslo a použijte výsledek z výpisu). V této úloze je třeba vyřešit logické formule (tedy najít takové ohodnocení formule, pro které je splnitelná). Řešte však pouze ty formule potřebné k nalezení vstupu a volání externí funkce. Neřešte žádné jiné formule.
+
+\section{Řešení}
+Metoda \uv{concolic testing} postupuje podle následujících kroků:
+
+\begin{itemize}
+    \item Vytvoříme logickou formuli $X_{l_1,\dots,\l_n}(P)$ avšak nikoliv najednou ale inkrementálně.
+    \item Jakmile během vytvoření formule narazíme na funkci, kterou nedokážeme vyřešit, použijeme program k obdržení výsledku funkce.
+    \item Pokud potřebuje funkce k provedení nějaké vstupy, vypočítáme je vyřešením symbolických formulí (té části, která odpovídá programu před zavolání externí funkce) 
+    \item Použijeme výsledek konkrétního provedení části programu a nahradíme volání externí funkci odpovídající získanou hodnotou. 
+\end{itemize}
+
+Postupujeme tedy podle výše zmíněných bodů. Nejprve vytváříme inkrementálně logickou formuli $X_{l_1,\dots,\l_n}(P)$ do chvíle, než narazíme na funkci, kterou nedokážeme vyřešit. Získáváme:
+$$[x_2 = x_1 + 1 \wedge x_2 > 7 ]$$
+
+Na dalším řádku se nachází volání externí funkce $ext(y)$, pro které potřebujeme nějaký vstup $y$. Zvolme tedy například $y = 4$, pro které je $f(y) = -5$. Nyní se můžeme vrátit zpět k prvnímu kroku a dál tvořit inkrementálně logickou formuli, čímž získáme:
+$$[x_2 = x_1 + 1 \wedge x_2 > 7 \wedge y_1 = 4 \wedge y_2 = -5 \wedge y_2 \leq 3 \wedge x_3 = x_2 - 1 ] \Rightarrow \bot$$. 
+
+\section{Poznámka}
+I přesto, že to zadání nevyžaduje, si pojďme ukázat, jak je to se splnitelností levé strany výsledné formule. V tomto případě můžeme snadno najít ohodnocení proměnných, pro které je levá strana formule splněna (například $x_1 \leftarrow 7$, $x_2 \leftarrow 8$, $x_3 \leftarrow 7$, $y_1 \leftarrow 4$, $y_2 \leftarrow -5$), a tedy nenacházíme žádnou chybu v programu.
+
+Pokud bychom však při konstrukci logické formule metodou \uv{concolic testing} zvolili například $y = 2$, pro které je $f(y) = 5$, získali bychom logickou formuli, která by obsahovala $y_2 = 5 \wedge y_2 \leq 3$, což by vedlo k závěru, že levá strana výsledné formule není splnitelná a program tedy nutně obsahuje chybu. Plyne z toho, že je velmi důležité zvolit správně počáteční a vstupní hodnoty potřebné k zavolání externích funkcí.
+
+\end{document}
